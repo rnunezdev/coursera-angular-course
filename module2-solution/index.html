@@ -1,10 +1,8 @@
 <!doctype html>
-<html lang="en" ng-app='ControllerAsApp'>
+<html lang="en" ng-app='ShoppingListCheckOff'>
   <head>
     <title>Shopping List Check Off</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <style>
       .emptyMessage {
@@ -34,25 +32,26 @@
     <div class="col-md-6" id="list1" ng-controller='ToBuyController as buyList'>
      <h2>To Buy:</h2>
      <ul>
-       <li ng-repeat="item in buyList.items">
+       <li ng-repeat="item in buyList.itemsBuy">
          Buy {{item.quantity}} {{item.name}}
          <button ng-click="buyList.checkOffItem($index);" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button>
        </li>
      </ul>
-     <div ng-show="buyList.items.length===0" class="emptyMessage">Everything is bought!</div>
+     <div ng-if="buyList.itemsBuy.length===0" class="emptyMessage">Everything is bought!</div>
     </div>
 
     <!-- Already Bought List -->
     <div class="col-md-6" id="list2" ng-controller='AlreadyBoughtController as boughtList'>
      <h2>Already Bought:</h2>
      <ul>
-       <li ng-if="item in boughtList.items">
+       <li ng-repeat="item in boughtList.itemsBought">
          Bought {{item.quantity}} {{item.name}}</li>
      </ul>
-     <div ng-if="boughtList.items.length===0" class="emptyMessage">Nothing bought yet.</div>
+     <div class="emptyMessage" ng-if="boughtList.itemsBought.length===0" >Nothing bought yet.</div>
     </div>
   </div>
 </div>
-
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
