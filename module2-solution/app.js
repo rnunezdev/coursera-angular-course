@@ -2,35 +2,29 @@
 'use strict';
 
 angular.module('ControllerAsApp', [])
-.controller('BuyListController', BuyListController)
-.controller('BoughtListController', BoughtListController)
-.service('ShoppingListService', ShoppingListService);
+.controller('ToBuyController', ToBuyController)
+.controller('AlreadyBoughtController', AlreadyBoughtController)
+.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
 // LIST #1 - controller
-BuyListController.$inject = ['ShoppingListService'];
-function BuyListController(ShoppingListService) {
+ToBuyController.$inject = ['ShoppingListCheckOffService'];
+function ToBuyController(ShoppingListCheckOffService) {
   var buyList = this;
-  var service = ShoppingListService;
 
-  buyList.items = service.getShoppingItems();
+  buyList.items = ShoppingListCheckOffService.getToBuyItems();
+  console.log(buyList.items + "HOLA");
   buyList.checkOffItem = function (itemIndex) {
-    service.checkOffItem(itemIndex);
-  }
-
-
-}
+    ShoppingListCheckOffService.checkOffItem(itemIndex);
+  }}
 
 // LIST #2 - controller
-BoughtListController.$inject = ['ShoppingListService'];
-function BoughtListController(ShoppingListService) {
+AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+function AlreadyBoughtController(ShoppingListCheckOffService) {
   var boughtList = this;
-  var service = ShoppingListService;
-
-  boughtList.items = service.getBoughtItems();
+  boughtList.items = ShoppingListCheckOffService.getBoughtItems();
 }
 
-
-function ShoppingListService() {
+function ShoppingListCheckOffService() {
   var service = this;
 
   // List of shopping items
@@ -49,10 +43,10 @@ function ShoppingListService() {
   };
 
   service.removeItem = function (itemIndex) {
-    shoppingItems.splice(itemIndex, 1);  
+    shoppingItems.splice(itemIndex, 1);
   };
 
-  service.getShoppingItems = function () {
+  service.getToBuyItems = function () {
     return shoppingItems;
   };
   service.getBoughtItems = function () {
