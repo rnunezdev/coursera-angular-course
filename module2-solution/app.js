@@ -11,8 +11,7 @@ ToBuyController.$inject = ['ShoppingListCheckOffService'];
 function ToBuyController(ShoppingListCheckOffService) {
   var buyList = this;
 
-  buyList.items = ShoppingListCheckOffService.getToBuyItems();
-  console.log(buyList.items + "HOLA");
+  buyList.items = ShoppingListCheckOffService.getToBuyItems();  
   buyList.checkOffItem = function (itemIndex) {
     ShoppingListCheckOffService.checkOffItem(itemIndex);
   }}
